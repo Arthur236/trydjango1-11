@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Home | {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h2>User Following Feed</h2>
+{% for obj in object_list %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="thumbnail">
+            <h4><a href="{% url 'profiles:detail' username=obj.user.username %}">{{ obj.user.username }}</a></h4>
+            <h4>{{ obj.name }}</h4>
+            <p>
+                <a href="{% url 'profiles:detail' username=obj.user.username %}?q={{ obj.restaurant.title }}">{{ obj.restaurant.title }}</a> |
+                <a href="{% url 'profiles:detail' username=obj.user.username %}?q={{ obj.restaurant.location }}">{{ obj.restaurant.location }} |</a>
+                <a href="{% url 'profiles:detail' username=obj.user.username %}?q={{ obj.restaurant.category }}">{{ obj.restaurant.category }}</a>
+            </p>
+
+            {% if obj.contents %}
+            <p>Contents</p>
+            <ul>
+                <li style="margin-bottom: 15px;">
+                    {% for item in obj.get_contents %}
+                    <a href="#"><span class="badge badge-default">{{ item }}</span></a>
+                    {% endfor %}
+                </li>
+            </ul>
+            {% endif %}
+
+            {% if obj.excludes %}
+            <p>Excludes</p>
+            <ul>
+                <li style="margin-bottom: 15px;">
+                    {% for item in obj.get_excludes %}
+                    <a href="#"><span class="badge badge-default">{{ item }}</span></a>
+                    {% endfor %}
+                </li>
+            </ul>
+            {% endif %}
+
+            {% empty %}
+            <p><a href="{% url 'menus:create' %}">Add Item</a></p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}
