@@ -49,6 +49,7 @@ coverage.xml
 *.log
 settings*.py
 *.sqlite
+*.sqlite3
 /CACHE
 
 # Sphinx documentation
@@ -58,7 +59,7 @@ docs/_build/
 target/
 
 # IDE
-../.idea/
+.idea/
 
 # External Libraries
 wger/core/static/bower_components
